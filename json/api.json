@@ -1,0 +1,19 @@
+{
+    "name":"Muhammad Mubeen",
+ "time":{
+    "updated": "Jun 25, 2024 06:59:25 UTC",
+"updatedISO": "2024-06-25T06:59:25+00:00",
+"updateduk": "Jun 25, 2024 at 07:59 BST"
+ },
+ "disclaimer": "This data was produced from the CoinDesk Bitcoin Price Index (USD). Non-USD currency data converted using hourly conversion rate from openexchangerates.org",
+"chartName": "Bitcoin",
+
+
+"A":{
+    "name_e":"Asad",
+    "B":{
+        "one":"ab"
+    }
+}
+
+}

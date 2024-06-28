@@ -1,4 +1,5 @@
-import 'package:bitcoin_api_integration/API_Integration/api_integration.dart';
+import 'package:bitcoin_api_integration/Api_part_1/api_part_1.dart';
+import 'package:bitcoin_api_integration/Auto_matic/auto.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -13,8 +14,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
-     
-      home: const BitcoinIntegrationMain(),
+      home: MainApi_Two(),
     );
   }
 }

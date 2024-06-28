@@ -19,7 +19,8 @@ class BitCoinModel {
       bpi: Bpi.fromJson(json['bpi']),
     );
   }
-
+  
+  
   Map<String, dynamic> toJson() {
     return {
       'time': time.toJson(),
