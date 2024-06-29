@@ -1,73 +1,73 @@
-class B {
-  String? one;
-  B({required this.one});
-  factory B.fromB(fromBB) {
-    return B(one: fromBB['one']);
-  }
+import 'dart:convert';
+import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+
+class ManyalApiWork extends StatefulWidget {
+  const ManyalApiWork({super.key});
+
+  @override
+  State<ManyalApiWork> createState() => _ManyalApiWorkState();
 }
 
-//
+class _ManyalApiWorkState extends State<ManyalApiWork> {
+  List<Photos> photoList = [];
 
-class A {
-  String? name_e;
-  B b;
-  A({
-    required this.b,
-    required this.name_e});
-  factory A.fromA(fromAAA) {
-    return A(name_e: fromAAA['name_e'
-    ],
+  Future<List<Photos>> getPhotos() async {
+    final response = await http
+        .get(Uri.parse('https://jsonplaceholder.typicode.com/photos'));
 
-    b: B.fromB(fromAAA['B'])
-
-    
-    
-    );
+    if (response.statusCode == 200) {
+      var datav = jsonDecode(response.body.toString());
+      List<Photos> tempPhotoList = [];
+      for (var i in datav) {
+        Photos photos = Photos(title: i['title'], url: i['url']);
+        tempPhotoList.add(photos);
+      }
+      return tempPhotoList;
+    } else {
+      throw Exception('Failed to load photos');
+    }
   }
-}
 
-//
-class Time {
-  String? updated;
-  String? updatedISO;
-  String? updateduk;
-  Time(
-      {required this.updated,
-      required this.updatedISO,
-      required this.updateduk});
-  factory Time.fromTime(fromTimeApna) {
-    return Time(
-        updated: fromTimeApna['updated'],
-        updatedISO: fromTimeApna['updatedISO'],
-        updateduk: fromTimeApna["updateduk"]);
-  }
-}
-
-class Mubeen {
-  String? name;
-  Time time;
-  A a;
-  
-  String? disclaimer;
-  String? chartName;
-
-  Mubeen(
-      {
-      required this.name,
-      required this.a,
-      required this.time,
-      required this.disclaimer,
-      required this.chartName});
-  factory Mubeen.fromJsomApnaMub(dataApanss) {
-    return Mubeen(
-      // b: B.fromB(dataApanss['B']),
-      a: A.fromA(dataApanss['A']),
-      chartName: dataApanss['chartName'],
-      disclaimer: dataApanss['disclaimer'],
-      name: dataApanss['name'],
-      time: Time.fromTime(
-        dataApanss['time'],
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.green,
+        title: Center(child: Text('Api Works')),
+      ),
+      body: FutureBuilder<List<Photos>>(
+        future: getPhotos(),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return Center(child: CircularProgressIndicator());
+          } else if (snapshot.hasError) {
+            return Center(child: Text('Error: ${snapshot.error}'));
+          } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+            return Center(child: Text('No data available'));
+          } else {
+            photoList = snapshot.data!;
+            return ListView.builder(
+              itemCount: photoList.length,
+              itemBuilder: (context, index) {
+                return ListTile(
+                  title: Column(
+                    children: [
+                      Text(photoList[index].title),
+                      // Image.network(photoList[index].url),
+                    ],
+                  ),
+                );
+              },
+            );
+          }
+        },
       ),
     );
   }
+}
+
+class Photos {
+  String title, url;
+  Photos({required this.title, required this.url});
 }

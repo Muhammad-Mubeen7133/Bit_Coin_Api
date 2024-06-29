@@ -1,5 +1,7 @@
+import 'package:bitcoin_api_integration/Api_Without_Model/apimain.dart';
 import 'package:bitcoin_api_integration/Api_part_1/api_part_1.dart';
 import 'package:bitcoin_api_integration/Auto_matic/auto.dart';
+import 'package:bitcoin_api_integration/Manual_Model_Work/maodel_manual.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -14,7 +16,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
-      home: MainApi_Two(),
+      home: ApiWithoutModel(),
     );
   }
 }
